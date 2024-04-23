@@ -1,9 +1,13 @@
 package routes
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+	"github.com/gofiber/fiber/v2"
+	"go-todo-api/bootstrap"
+)
 
-func DefineHelloRoutes(router fiber.Router) {
+func DefineHelloRoutes(router fiber.Router, container *bootstrap.Container) {
 	router.Get("/hello", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+		return c.SendString(fmt.Sprintf("Hello, %s!", container.Env.AppName))
 	})
 }

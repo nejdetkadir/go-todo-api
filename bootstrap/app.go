@@ -36,11 +36,13 @@ func (app *Application) OnStartup() {
 	log.Println("The " + app.Env.AppName + " is running in " + app.Env.AppEnv + " mode")
 }
 
-func (app *Application) Init() *fiber.App {
+func (app *Application) Init() (*fiber.App, *Container) {
 	fiberConfig := getFiberConfig(app.Env)
 	fiberApp := fiber.New(*fiberConfig)
 
-	return fiberApp
+	container := app.GetContainer(fiberApp)
+
+	return fiberApp, container
 }
 
 func (app *Application) Run(fiberApp *fiber.App) {
@@ -56,4 +58,8 @@ func getFiberConfig(env *Env) *fiber.Config {
 	}
 
 	return &fiber.Config{}
+}
+
+func (app *Application) GetContainer(fiberApp *fiber.App) *Container {
+	return NewContainer(app, fiberApp)
 }

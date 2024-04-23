@@ -1,12 +1,12 @@
 package routes
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"go-todo-api/bootstrap"
 )
 
-func Setup(app *fiber.App) {
-	apiGroup := app.Group("/api")
+func Setup(container *bootstrap.Container) {
+	apiGroup := container.FiberApp.Group("/api")
 	v1 := apiGroup.Group("/v1")
 
-	DefineHelloRoutes(v1)
+	DefineHelloRoutes(v1, container)
 }

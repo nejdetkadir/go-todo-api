@@ -7,9 +7,9 @@ import (
 
 func main() {
 	app := bootstrap.NewApp()
-	fiberApp := app.Init()
+	fiberApp, container := app.Init()
 
-	routes.Setup(fiberApp)
+	routes.Setup(container)
 
 	app.Run(fiberApp)
 }
