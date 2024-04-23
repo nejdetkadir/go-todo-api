@@ -5,6 +5,13 @@ import (
 	"log"
 )
 
+type EnvType interface {
+	GetAppName() string
+	GetAppEnv() string
+	GetDatabaseURL() string
+	GetPort() string
+}
+
 type Env struct {
 	AppName     string `mapstructure:"APP_NAME"`
 	AppEnv      string `mapstructure:"APP_ENV"`
@@ -12,7 +19,7 @@ type Env struct {
 	Port        string `mapstructure:"PORT"`
 }
 
-func GetEnvironmentVariables() *Env {
+func GetEnvironmentVariables() EnvType {
 	env := Env{}
 	viper.SetConfigFile(".env")
 
@@ -33,4 +40,20 @@ func GetEnvironmentVariables() *Env {
 	}
 
 	return &env
+}
+
+func (e *Env) GetAppName() string {
+	return e.AppName
+}
+
+func (e *Env) GetAppEnv() string {
+	return e.AppEnv
+}
+
+func (e *Env) GetDatabaseURL() string {
+	return e.DatabaseURL
+}
+
+func (e *Env) GetPort() string {
+	return e.Port
 }

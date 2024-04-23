@@ -8,6 +8,6 @@ import (
 
 func DefineHelloRoutes(router fiber.Router, container *bootstrap.Container) {
 	router.Get("/hello", func(c *fiber.Ctx) error {
-		return c.SendString(fmt.Sprintf("Hello, %s!", container.Env.AppName))
+		return c.SendString(fmt.Sprintf("Hello, %s!", container.Env.GetAppEnv()))
 	})
 }
